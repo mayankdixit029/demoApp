@@ -1,0 +1,32 @@
+const db = require("../utils/databaseUtil");
+
+module.exports = class Student {
+  constructor(name, classes, roll_number, dob, id) {
+    this.name = name;
+    this.classes = classes;
+    this.roll_number = roll_number;
+    this.dob = dob;
+    this.id = id;
+  }
+  save() {}
+
+  static fetchAll() {
+    return db
+      .execute("SELECT * FROM students")
+      .then(([rows, fieldData]) => {
+        console.log("test", rows, fieldData);
+        return rows;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }
+
+  //   static findById(studentId) {
+  //     return db.execute("SELECT * FROM students WHERE id = ?", [studentId]);
+  //   }
+
+  //   static deleteById(studentId) {
+  //     return db.execute("DELETE FROM students WHERE id = ?", [studentId]);
+  //   }
+};
