@@ -1,11 +1,25 @@
-const student = require('../models/students');
+const Student = require('../models/students');
 
 const getStudents = (req, res) => {
-  student.fetchAll().then((students) => {
+  Student.fetchAll().then((students) => {
     res.json(students);
+  });
+};
+
+const postAddStudent = (req, res) => {
+  console.log("Request body:", req.body);
+  const { name, classes, roll_number, dob } = req.body;
+  const newStudent = new Student(name, classes, roll_number, dob);
+  // Save the new student to the database
+  newStudent.save().then(() => {
+    res.status(201).json({ message: 'Student added successfully' });
+  }).catch((err) => {
+    console.log("Error adding student:", err);
+    res.status(500).json({ error: 'Failed to add student' });
   });
 };
 
 module.exports = {
   getStudents,
+  postAddStudent,
 };

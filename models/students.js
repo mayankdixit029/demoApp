@@ -1,14 +1,19 @@
 const db = require("../utils/databaseUtil");
 
 module.exports = class Student {
-  constructor(name, classes, roll_number, dob, id) {
+  constructor(name, classes, roll_number, dob) {
     this.name = name;
     this.classes = classes;
     this.roll_number = roll_number;
     this.dob = dob;
-    this.id = id;
+    // this.id = id;
   }
-  save() {}
+  save() {
+    return db.execute(
+      "INSERT INTO students (name, classes, roll_number, dob) VALUES (?, ?, ?, ?)",
+      [this.name, this.classes, this.roll_number, this.dob]
+    );
+  }
 
   static fetchAll() {
     return db
