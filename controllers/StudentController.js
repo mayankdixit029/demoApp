@@ -27,8 +27,32 @@ const getEditStudent = (req, res) => {
   });
 };
 
+const postEditStudent = (req, res) => {
+  const studentId = req.params.studentId;
+  const { name, classes, roll_number, dob } = req.body;
+  // Update the student in the database
+  Student.update(studentId, name, classes, roll_number, dob).then(() => {
+    res.json({ message: 'Student updated successfully' });
+  }).catch((err) => {
+    console.log("Error updating student:", err);
+    res.status(500).json({ error: 'Failed to update student' });
+  });
+};
+
+const deleteStudent = (req, res) => {
+  const studentId = req.params.studentId;
+  Student.deleteById(studentId).then(() => {
+    res.json({ message: 'Student deleted successfully' });
+  }).catch((err) => {
+    console.log("Error deleting student:", err);
+    res.status(500).json({ error: 'Failed to delete student' });
+  });
+};
+
 module.exports = {
   getStudents,
   postAddStudent,
   getEditStudent,
+  postEditStudent,
+  deleteStudent,
 };

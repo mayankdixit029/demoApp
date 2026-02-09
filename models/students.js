@@ -38,7 +38,28 @@ module.exports = class Student {
       });
   }
 
-  //   static deleteById(studentId) {
-  //     return db.execute("DELETE FROM students WHERE id = ?", [studentId]);
-  //   }
+  static update(studentId, name, classes, roll_number, dob) {
+    return db
+      .execute(
+        "UPDATE students SET name = ?, classes = ?, roll_number = ?, dob = ? WHERE id = ?",
+        [name, classes, roll_number, dob, studentId]
+      )
+      .then(([result]) => {
+        return result;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }
+
+  static deleteById(studentId) {
+    return db
+      .execute("DELETE FROM students WHERE id = ?", [studentId])
+      .then(([result]) => {
+        return result;
+      })
+      .catch((err) => {
+        throw err;
+      });
+    }
 };
