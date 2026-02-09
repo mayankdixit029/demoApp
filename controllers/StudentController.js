@@ -19,7 +19,16 @@ const postAddStudent = (req, res) => {
   });
 };
 
+const getEditStudent = (req, res) => {
+  console.log("Student ID from params:", req.params.studentId);
+  const studentId = req.params.studentId;
+  Student.findById(studentId).then((student) => {
+    res.json(student);
+  });
+};
+
 module.exports = {
   getStudents,
   postAddStudent,
+  getEditStudent,
 };

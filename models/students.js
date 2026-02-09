@@ -27,9 +27,16 @@ module.exports = class Student {
       });
   }
 
-  //   static findById(studentId) {
-  //     return db.execute("SELECT * FROM students WHERE id = ?", [studentId]);
-  //   }
+  static findById(studentId) {
+    return db
+      .execute("SELECT * FROM students WHERE id = ?", [studentId])
+      .then(([rows, fieldData]) => {
+        return rows[0];
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }
 
   //   static deleteById(studentId) {
   //     return db.execute("DELETE FROM students WHERE id = ?", [studentId]);
